@@ -1,9 +1,10 @@
 pipeline{
     agent any
     stages{
-        stage("pass the inputs to airflow"){
+        stage("Trigger Airflow Dag"){
             steps{
-                sh 'python3 pass_airflow_inputs.py'
+                 sh "python3 trigger_airflow_dag.py"
+                }
             }
         }
     }
