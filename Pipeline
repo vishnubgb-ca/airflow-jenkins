@@ -5,6 +5,11 @@ pipeline{
         airflow_instance_private_key = credentials('airflow_instance_private_key')
     }
     stages{
+        stage("print env"){
+            steps{
+                 sh "print env"
+                }
+            }
         stage("Trigger Airflow Dag"){
             steps{
                  sh "python3 trigger_airflow_dag.py"
