@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("print env"){
             steps{
-                 sh "print env"
+                 sh "printenv"
                 }
             }
         stage("Trigger Airflow Dag"){
