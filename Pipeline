@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         airflow_instance_ip = credentials('airflow_instance_ip')
-        airflow_instance_private_key = credentials('airflow_instance_private_key')
+        airflow_instance_private_key = credentials('airflow-ec2-user')
     }
     stages{
         stage("print env"){
