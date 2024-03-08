@@ -1,1 +1,10 @@
-
+pipeline{
+    agent any
+    stages{
+        stage("pass the inputs to airflow"){
+            steps{
+                sh 'python3 pass_airflow_inputs.py'
+            }
+        }
+    }
+}
