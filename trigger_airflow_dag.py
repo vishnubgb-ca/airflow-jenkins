@@ -1,8 +1,8 @@
 import paramiko
 import os
 
-#key_file = os.environ["airflow_instance_private_key"]
-key_file = "/home/ubuntu/MLOps_Repo/backend/mlflow_as_a_service/test.pem"
+key_file = os.environ["airflow_instance_private_key"]
+#key_file = "/home/ubuntu/MLOps_Repo/backend/mlflow_as_a_service/test.pem"
 instance_ip = os.environ["airflow_instance_ip"]
 ssh_client=paramiko.SSHClient()
 ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
