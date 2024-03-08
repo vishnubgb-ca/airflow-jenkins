@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         airflow_instance_ip = credentials('airflow_instance_ip')
-        client_secret = credentials('client_secret')
+        airflow_instance_private_key = credentials('airflow_instance_private_key')
     }
     stages{
         stage("Trigger Airflow Dag"){
