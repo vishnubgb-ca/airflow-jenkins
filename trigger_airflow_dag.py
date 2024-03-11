@@ -11,7 +11,7 @@ print("connecting to instance........")
 ssh_client.connect(hostname = airflow_instance_ip, username='ubuntu', pkey = key)
 print("connected")
 ftp_client=ssh_client.open_sftp()
-commands = ["sudo docker exec 24533a971dac airflow dags trigger -c airflow-jenkins-dag refresh_dags"]
+commands = ["sudo docker exec fc26cd5358f8 airflow dags trigger -c airflow-jenkins-dag refresh_dags"]
 
 for cmd in commands:
     stdin, stdout, stderr = ssh_client.exec_command(cmd)
