@@ -9,7 +9,7 @@ ssh_client=paramiko.SSHClient()
 ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 key = paramiko.RSAKey.from_private_key_file(key_file)
 print("connecting to instance........")
-ssh_client.connect(hostname = '172.31.61.199', username='ubuntu', pkey = key)
+ssh_client.connect(hostname = airflow_instance_ip, username='ubuntu', pkey = key)
 print("connected")
 ftp_client=ssh_client.open_sftp()
 commands = ["sudo docker exec 66a3bfffa13b airflow dags trigger -c airflow-jenkins-dag refresh_dags"]
