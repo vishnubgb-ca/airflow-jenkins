@@ -2,7 +2,7 @@ import paramiko
 import os
 
 #airflow_instance_private_key = os.environ["airflow_instance_private_key"]
-key_file = "/home/ubuntu/MLOps_Repo/backend/mlflow_as_a_service/test.pem"
+key_file = "/home/ubuntu/MLOps_Repo/backend/test.pem"
 airflow_instance_ip = os.environ["airflow_instance_ip"]
 print(airflow_instance_ip)
 ssh_client=paramiko.SSHClient()
