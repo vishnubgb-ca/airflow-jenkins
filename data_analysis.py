@@ -1,8 +1,9 @@
 import numpy as np
+import pandas as pd
 #from data_extraction import load_data
 
 #def analyse_data():
-data = ('data.csv')
+data = pd.read_csv('data.csv')
 print(data.info())
 print(data.describe())
 print("Features in the data:", data.columns)
