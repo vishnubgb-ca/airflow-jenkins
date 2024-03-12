@@ -2,7 +2,7 @@ import numpy as np
 #from data_extraction import load_data
 
 #def analyse_data():
-data = load_data()
+data = ('data.csv')
 print(data.info())
 print(data.describe())
 print("Features in the data:", data.columns)
