@@ -3,12 +3,13 @@ import pandas as pd
 import boto3
 import os
 
-access_key = os.environ.get("access_key")
-secret_key = os.environ.get("secret_key")
+access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+bucket_name = os.environ.get("Bucket_Name")
 s3 = boto3.client('s3', aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key,
                       region_name='us-east-1')
-obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/rawdata.csv')
+obj = s3.get_object(Bucket=bucket_name, Key='Student_Performance_Classifier/rawdata.csv')
 data = pd.read_csv(obj['Body'])
 #data = pd.read_csv('data.csv')
 print(data.info())
