@@ -4,10 +4,10 @@ import boto3
 
 #data = pd.read_csv('data.csv')
 #print(data.head())
+access_key = os.environ.get("access_key")
+secret_key = os.environ.get("secret_key")
 
 def read_csv_from_s3():
-    access_key = os.environ.get("access_key")
-    secret_key = os.environ.get("secret_key")
     s3 = boto3.client('s3', aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key,
                       region_name='us-east-1')
