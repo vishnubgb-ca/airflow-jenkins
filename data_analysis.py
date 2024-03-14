@@ -3,7 +3,12 @@ import pandas as pd
 #from data_extraction import load_data
 
 #def analyse_data():
-data = pd.read_csv('data.csv')
+s3 = boto3.client('s3', aws_access_key_id=access_key,
+                      aws_secret_access_key=secret_key,
+                      region_name='us-east-1')
+obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/rawdata.csv')
+data = pd.read_csv(obj['Body'])
+#data = pd.read_csv('data.csv')
 print(data.info())
 print(data.describe())
 print("Features in the data:", data.columns)
