@@ -1,9 +1,44 @@
 import pandas as pd
 import numpy as np
-from datavisualization import visualise_data
+#from datavisualization import visualise_data
+import boto3
 
 def feature_engineer():
-    data = visualise_data()
+    #data = visualise_data()
+    access_key = os.environ.get("access_key")
+    secret_key = os.environ.get("secret_key")
+    s3 = boto3.client('s3', aws_access_key_id=access_key,
+                          aws_secret_access_key=secret_key,
+                          region_name='us-east-1')
+    obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/rawdata.csv')
+    data = pd.read_csv(obj['Body'])
+    data['score'] = ((data["G1"]+data["G2"]+data["G3"])/60)*100
+    # create a list of our conditions
+    conditions = [
+        (data['score'] <= 69),
+        (data['score'] >= 70) & (data['score'] <= 89),
+        (data['score'] >= 90)
+        ]
+    # create a list of the values we want to assign for each condition
+    values = ['L', 'M', 'H']
+    # create a new column and use np.select to assign values to it using our lists as arguments
+    data['grade'] = np.select(conditions, values)
+    data.drop(['Unnamed: 0', 'school', 'Mjob', 'Fjob', 'reason', 'guardian', 'nursery', 'romantic', 'famrel', 'Dalc', 'Walc', 'G1', 'G2', 'G3', 'score'], axis=1, inplace=True)
+    data['score'] = ((data["G1"]+data["G2"]+data["G3"])/60)*100
+    # create a list of our conditions
+    conditions = [
+        (data['score'] <= 69),
+        (data['score'] >= 70) & (data['score'] <= 89),
+        (data['score'] >= 90)
+        ]
+    # create a list of the values we want to assign for each condition
+    values = ['L', 'M', 'H']
+    # create a new column and use np.select to assign values to it using our lists as arguments
+    data['grade'] = np.select(conditions, values)
+    data.drop(['Unnamed: 0', 'school', 'Mjob', 'Fjob', 'reason', 'guardian', 'nursery', 'romantic', 'famrel', 'Dalc', 'Walc', 'G1', 'G2', 'G3', 'score'], axis=1, inplace=True)
+    print(data.head())
+    categorical_features = data.select_dtypes("object").columns
+    numerical_features = data.select_dtypes("number").columns
     # Outlier Treatment
     percentile25 = data['absences'].quantile(0.25)
     percentile75 = data['absences'].quantile(0.75)
