@@ -24,7 +24,7 @@ def upload_csv_to_s3(data, object_key):
     
     csv_buffer = data.to_csv(index=False)
     s3.put_object(Bucket='mlanglesdev', Key=object_key, Body=csv_buffer)
-    print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
+    print(f"CSV file uploaded to S3://mlanglesdev/{object_key}")
 
 data = read_csv_from_s3()
 object_key = 'Student_Performance_Classifier/rawdata.csv'
