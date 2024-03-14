@@ -19,7 +19,7 @@ def read_csv_from_s3():
                       aws_secret_access_key=secret_key,
                       region_name='us-east-1')
  
-    obj = s3.get_object(Bucket='mlangles-githubrepos', Key='Student_Performance_Classifier/data.csv')
+    obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/data.csv')
     data = pd.read_csv(obj['Body'])
     print(data.head())
     return data
