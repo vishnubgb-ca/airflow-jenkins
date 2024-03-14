@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import boto3
+import os
 
 access_key = os.environ.get("access_key")
 secret_key = os.environ.get("secret_key")
