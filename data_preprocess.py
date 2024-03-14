@@ -1,9 +1,17 @@
 from data_analysis import analyse_data
 import numpy as np
 import pandas as pd
+import boto3
 
 def data_preprocess():
-    data, num_features, cat_features  = analyse_data()
+    #data, num_features, cat_features  = analyse_data()
+    access_key = os.environ.get("access_key")
+    secret_key = os.environ.get("secret_key")
+    s3 = boto3.client('s3', aws_access_key_id=access_key,
+                          aws_secret_access_key=secret_key,
+                          region_name='us-east-1')
+    obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/rawdata.csv')
+    data = pd.read_csv(obj['Body'])
     data['score'] = ((data["G1"]+data["G2"]+data["G3"])/60)*100
     # create a list of our conditions
     conditions = [
