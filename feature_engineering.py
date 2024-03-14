@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 #from datavisualization import visualise_data
 import boto3
+import os
 
 def feature_engineer():
     #data = visualise_data()
