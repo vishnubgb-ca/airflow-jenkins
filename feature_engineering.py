@@ -24,19 +24,6 @@ def feature_engineer():
     # create a new column and use np.select to assign values to it using our lists as arguments
     data['grade'] = np.select(conditions, values)
     data.drop(['Unnamed: 0', 'school', 'Mjob', 'Fjob', 'reason', 'guardian', 'nursery', 'romantic', 'famrel', 'Dalc', 'Walc', 'G1', 'G2', 'G3', 'score'], axis=1, inplace=True)
-    data['score'] = ((data["G1"]+data["G2"]+data["G3"])/60)*100
-    # create a list of our conditions
-    conditions = [
-        (data['score'] <= 69),
-        (data['score'] >= 70) & (data['score'] <= 89),
-        (data['score'] >= 90)
-        ]
-    # create a list of the values we want to assign for each condition
-    values = ['L', 'M', 'H']
-    # create a new column and use np.select to assign values to it using our lists as arguments
-    data['grade'] = np.select(conditions, values)
-    data.drop(['Unnamed: 0', 'school', 'Mjob', 'Fjob', 'reason', 'guardian', 'nursery', 'romantic', 'famrel', 'Dalc', 'Walc', 'G1', 'G2', 'G3', 'score'], axis=1, inplace=True)
-    print(data.head())
     categorical_features = data.select_dtypes("object").columns
     numerical_features = data.select_dtypes("number").columns
     # Outlier Treatment
@@ -75,7 +62,11 @@ def feature_engineer():
     grade_2_oversample = grade_2.sample(grade_0_count, replace=True)
     data_balanced = pd.concat([grade_1_oversample, grade_2_oversample, grade_0], axis=0)
     data_balanced['grade'].groupby(data_balanced['grade']).count()
-    data_balanced.to_csv('student_performance_cleansed_data.csv', index=False)
-    return data_balanced
+    csv_buffer = data_balanced.to_csv(index=False)
+    object_key = 'Student_Performance_Classifier/cleanseddata.csv'
+    #csv_buffer = data.to_csv(index=False)
+    s3.put_object(Bucket='mlanglesdev', Key=object_key, Body=csv_buffer)
+    print(f"CSV file uploaded to S3://mlanglesdev/{object_key}")
+    print("cleansed_data:", data_balanced.head())
 
 feature_engineer()
