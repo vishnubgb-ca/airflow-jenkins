@@ -12,7 +12,7 @@ def read_csv_from_s3():
     s3 = boto3.client('s3', aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key,
                       region_name='us-east-1')
-    obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/data.csv')
+    obj = s3.get_object(Bucket=bucket_name, Key='Student_Performance_Classifier/data.csv')
     data = pd.read_csv(obj['Body'])
     print(data.head())
     return data
@@ -24,8 +24,8 @@ def upload_csv_to_s3(data, object_key):
                       region_name='us-east-1')
     
     csv_buffer = data.to_csv(index=False)
-    s3.put_object(Bucket='mlanglesdev', Key=object_key, Body=csv_buffer)
-    print(f"CSV file uploaded to S3://mlanglesdev/{object_key}")
+    s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
+    print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
 
 data = read_csv_from_s3()
 object_key = 'Student_Performance_Classifier/rawdata.csv'
