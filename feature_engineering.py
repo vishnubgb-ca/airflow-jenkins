@@ -6,12 +6,13 @@ import os
 
 def feature_engineer():
     #data = visualise_data()
-    access_key = os.environ.get("access_key")
-    secret_key = os.environ.get("secret_key")
+    access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+    secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    bucket_name = os.environ.get("Bucket_Name")
     s3 = boto3.client('s3', aws_access_key_id=access_key,
                           aws_secret_access_key=secret_key,
                           region_name='us-east-1')
-    obj = s3.get_object(Bucket='mlanglesdev', Key='Student_Performance_Classifier/rawdata.csv')
+    obj = s3.get_object(Bucket=bucket_name, Key='Student_Performance_Classifier/rawdata.csv')
     data = pd.read_csv(obj['Body'])
     data['score'] = ((data["G1"]+data["G2"]+data["G3"])/60)*100
     # create a list of our conditions
@@ -66,8 +67,8 @@ def feature_engineer():
     csv_buffer = data_balanced.to_csv(index=False)
     object_key = 'Student_Performance_Classifier/cleanseddata.csv'
     #csv_buffer = data.to_csv(index=False)
-    s3.put_object(Bucket='mlanglesdev', Key=object_key, Body=csv_buffer)
-    print(f"CSV file uploaded to S3://mlanglesdev/{object_key}")
+    s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
+    print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
     print("cleansed_data:", data_balanced.head())
 
 feature_engineer()
