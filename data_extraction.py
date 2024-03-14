@@ -4,8 +4,9 @@ import boto3
 
 #data = pd.read_csv('data.csv')
 #print(data.head())
-access_key = os.environ.get("access_key")
-secret_key = os.environ.get("secret_key")
+access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
+bucket_name = os.environ.get("Bucket_Name")
 
 def read_csv_from_s3():
     s3 = boto3.client('s3', aws_access_key_id=access_key,
