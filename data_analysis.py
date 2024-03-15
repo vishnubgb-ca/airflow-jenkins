@@ -9,7 +9,7 @@ bucket_name = os.environ.get("Bucket_Name")
 s3 = boto3.client('s3', aws_access_key_id=access_key,
                       aws_secret_access_key=secret_key,
                       region_name='us-east-1')
-obj = s3.get_object(Bucket=bucket_name, Key='Student_Performance_Classifier/rawdata.csv')
+obj = s3.get_object(Bucket=bucket_name, Key='airflow-jenkins/rawdata.csv')
 data = pd.read_csv(obj['Body'])
 #data = pd.read_csv('data.csv')
 print(data.info())
