@@ -28,5 +28,5 @@ def upload_csv_to_s3(data, object_key):
     print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
 
 data = read_csv_from_s3()
-object_key = 'Student_Performance_Classifier/rawdata.csv'
+object_key = 'airflow-jenkins/rawdata.csv'
 upload_csv_to_s3(data, object_key)
