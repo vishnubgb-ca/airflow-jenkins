@@ -64,11 +64,12 @@ def feature_engineer():
     grade_2_oversample = grade_2.sample(grade_0_count, replace=True)
     data_balanced = pd.concat([grade_1_oversample, grade_2_oversample, grade_0], axis=0)
     data_balanced['grade'].groupby(data_balanced['grade']).count()
-    csv_buffer = data_balanced.to_csv(index=False)
-    object_key = 'airflow-jenkins/cleanseddata.csv'
+    data_balanced.to_csv("cleanseddata.csv",index=False)
+    #csv_buffer = data_balanced.to_csv(index=False)
+    #object_key = 'airflow-jenkins/cleanseddata.csv'
     #csv_buffer = data.to_csv(index=False)
-    s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
-    print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
+    #s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
+    #print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
     print("cleansed_data:", data_balanced.head())
 
 feature_engineer()
