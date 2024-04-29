@@ -69,6 +69,7 @@ def feature_engineer():
     #object_key = 'airflow-jenkins/cleanseddata.csv'
     #csv_buffer = data.to_csv(index=False)
     #s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
+    p
     #print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
     print("cleansed_data:", data_balanced.head())
 
