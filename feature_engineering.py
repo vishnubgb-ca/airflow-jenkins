@@ -70,7 +70,6 @@ def feature_engineer():
     #csv_buffer = data.to_csv(index=False)
     #s3.put_object(Bucket=bucket_name, Key=object_key, Body=csv_buffer)
     #print(f"CSV file uploaded to S3://{bucket_name}/{object_key}")
-    p
     print("cleansed_data:", data_balanced.head())
 
 feature_engineer()
